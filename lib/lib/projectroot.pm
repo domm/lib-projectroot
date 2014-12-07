@@ -1,4 +1,4 @@
-package File::FindLocalLib;
+package lib::projectroot;
 use strict;
 use warnings;
 use 5.010;
@@ -7,6 +7,7 @@ use FindBin qw();
 use Carp qw(carp);
 use File::Spec::Functions qw(catdir splitdir);
 use local::lib qw();
+use lib qw();
 
 my $ROOT;
 
@@ -78,17 +79,17 @@ __END__
   use warnings;
   # look up from the file's location until we find a directory containing a directory
   # named 'lib'. Add this dir to @INC
-  use File::FindLocalLib qw(lib);
+  use lib::projectroot qw(lib);
 
   # look up until we find a dir that contains both 'lib' and 'foo', add both to @INC
-  use File::FindLocalLib qw(lib foo);
+  use lib::projectroot qw(lib foo);
 
   # look up until we find 'lib' and 'local'. Add 'lib' to @INC, load 'local' via local::lib
-  use File::FindLocalLib qw(lib local::lib=local);
+  use lib::projectroot qw(lib local::lib=local);
 
   # based on the dir we found earlier, go up one dir and try to add
   # 'Your-OtherModule/lib' and 'Dark-PAN/lib' to @INC
-  File::FindLocalLib->load_extra(Your-OtherModule Dark-PAN);
+  lib::projectroot->load_extra(Your-OtherModule Dark-PAN);
 
 
 =head1 DESCRIPTION
@@ -116,17 +117,17 @@ There is C<AProject>, which is the actual code I'm working on. There is also pro
 
 I have some generic helper code I use in several projects in C<MyHelperStuff/lib>. It will never go to CPAN. I have some other code in C<CoolLib-NotYetOnCPAN/lib> (but it might end up on CPAN if I ever get to clean it up...)
 
-C<File::FindLocalLib> makes it easy to add all these paths to C<@INC> so I can use the code.
+C<lib::projectroot> makes it easy to add all these paths to C<@INC> so I can use the code.
 
 In each script, I just have to say:
 
-  use File::FindLocalLib qw(lib local::lib=local);
+  use lib::projectroot qw(lib local::lib=local);
 
 C<lib> is added to the beginning of <@INC>, and C<local> is loaded via C<local::lib>, without me having to know how deep in C<bin> the current script is located.
 
 I can also add
 
-  File::FindLocalLib->load_extra(qw(MyHelperStuff CoolLib-NotYetOnCPAN));
+  lib::projectroot->load_extra(qw(MyHelperStuff CoolLib-NotYetOnCPAN));
 
 to get my other code pushed to C<@INC>. (Though currently I put this line, and some other setup code like initialising C<Log::Any> into C<AProject::Run>, and just C<use AProject::Run;>)
 

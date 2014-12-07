@@ -16,7 +16,7 @@ sub import {
     my @libdirs;
     my @locallibs;
     foreach my $d (@_) {
-        if ( $d =~ /^local::lib=(\w+)/ ) {
+        if ( $d =~ /^local::lib=([\S]+)/ ) {
             push( @libdirs,   $1 );
             push( @locallibs, $1 );
         }

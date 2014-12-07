@@ -183,7 +183,7 @@ Some ideas for future releases:
 
 Thanks to C<eserte>, C<Smylers> & Ca<abraxxa> for providing feedback
 at L<http://prepan.org/module/nY4oajhgzJN|prepan.org>. Meta-thanks to
-<http://twitter.com/kentaro|kentaro> for running prepan, a very handy
+L<http://twitter.com/kentaro|kentaro> for running prepan, a very handy
 service!
 
 Thanks to C<koki>, C<farhad> and C<Jozef> for providing face-to-face

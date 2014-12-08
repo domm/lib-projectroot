@@ -6,9 +6,14 @@ use File::Spec::Functions qw(splitdir);
 
 sub cleanup {
     my $dir = shift;
-    $dir=~s{.*lib-projectroot\-[\d\.]+}{};
-    my $clean = join('/',grep { $_ } splitdir($dir));
-    return $clean;
+    my @clean;
+    my $drin=1;
+    foreach my $part (reverse splitdir($dir)) {
+        $drin=0 if $part=~/lib-projectroot/;
+        push(@clean, $part) if $drin;
+    }
+
+    return join('/',reverse @clean);
 }
 
 

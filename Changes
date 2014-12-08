@@ -1,5 +1,10 @@
 Changes for lib::projectroot
 
+1.001   2014-12-08T19:40:24
+    - fixed testlib to work on more OSes (as reported by cpantesters)
+    - fixed link in POD
+
+
 1.000	2014-12-07T14:54:54
 	- first inital release
 	- see http://prepan.org/module/nY4oajhgzJN for some pre-release discussions

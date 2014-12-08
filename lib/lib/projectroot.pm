@@ -4,7 +4,7 @@ use warnings;
 use 5.010;
 
 # ABSTRACT: easier loading of a project's local libs
-our $VERSION = "1.000";
+our $VERSION = "1.001";
 
 use FindBin qw();
 use Carp qw(carp);

@@ -120,7 +120,7 @@ I'm usually using a setup like this:
 
 There is C<AProject>, which is the actual code I'm working on. There
 is also probably C<BProject>, e.g. another microservice for the same
-customer. C<AProject> has it's own code in C<lib> and it's CPAN
+customer. C<AProject> has its own code in C<lib> and its CPAN
 dependencies in C<local> (managed via C<Carton> and used via
 C<local::lib>). There are a bunch of scripts / "binaries" in C<bin>,
 in a lot of different directories of varying depth.
@@ -157,7 +157,7 @@ Some ideas for future releases:
 
 =item * what happens if C<$PERL5LIB> is already set?
 
-=item * add C<local::lib> dirs of extras (i.e. if DarkPAN also uses C<local::lib> to install it's deps)
+=item * add C<local::lib> dirs of extras (i.e. if DarkPAN also uses C<local::lib> to install its deps)
 
 =item * also load extras via C<lib::projectroot>'s C<import> method
 

@@ -4,7 +4,7 @@ use warnings;
 use 5.010;
 
 # ABSTRACT: easier loading of a project's local libs
-our $VERSION = "1.001";
+our $VERSION = "1.002";
 
 use FindBin qw();
 use Carp qw(carp);
@@ -101,6 +101,8 @@ __END__
   # 'Your-OtherModule/lib' and 'Dark-PAN/lib' to @INC
   lib::projectroot->load_extra(Your-OtherModule Dark-PAN);
 
+  # the same as above
+  use lib::projectroot qw(lib local::lib=local extra=Your-OtherModule,Dark-PAN);
 
 =head1 DESCRIPTION
 
@@ -154,6 +156,14 @@ to get my other code pushed to C<@INC>. (Though currently I put this
 line, and some other setup code like initialising C<Log::Any> into
 C<AProject::Run>, and just C<use AProject::Run;>)
 
+You can also define extra dists directly while loading C<lib::projectroot>:
+
+  use lib::projectroot qw(
+      lib
+      local::lib=local
+      extra=MyHelperStuff,CoolLib-NotYetOnCPAN
+  );
+
 =head1 TODOs
 
 Some ideas for future releases:
@@ -163,8 +173,6 @@ Some ideas for future releases:
 =item * what happens if C<$PERL5LIB> is already set?
 
 =item * add C<local::lib> dirs of extras (i.e. if DarkPAN also uses C<local::lib> to install its deps)
-
-=item * also load extras via C<lib::projectroot>'s C<import> method
 
 =item * think about the security issues raised by Abraxxa (http://prepan.org/module/nY4oajhgzJN 2014-12-02 18:42:07)
 

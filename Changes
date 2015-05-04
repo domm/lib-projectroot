@@ -1,5 +1,10 @@
 Changes for lib::projectroot
 
+1.002   2015-05-04T22:04:25
+    - load extra via import
+    - fix some english grammar errors (spotted by sixtease)
+
+
 1.001   2014-12-08T19:40:24
     - fixed testlib to work on more OSes (as reported by cpantesters)
     - fixed link in POD

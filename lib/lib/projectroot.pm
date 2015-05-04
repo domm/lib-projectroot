@@ -18,10 +18,14 @@ sub import {
     my $class = shift;
     my @libdirs;
     my @locallibs;
+    my @extra;
     foreach my $d (@_) {
         if ( $d =~ /^local::lib=([\S]+)/ ) {
             push( @libdirs,   $1 );
             push( @locallibs, $1 );
+        }
+        elsif ( $d =~ /^extra=([\S]+)/ ) {
+            @extra=split(/[,;]/, $1);
         }
         else {
             push( @libdirs, $d );
@@ -44,6 +48,7 @@ SEARCH: while (@searchdirs) {
     if ($ROOT) {
         local::lib->import( map { catdir( $ROOT, $_ ) } @locallibs ) if @locallibs;
         lib->import( map        { catdir( $ROOT, $_ ) } @libdirs ) if @libdirs;
+        __PACKAGE__->load_extra( @extra ) if @extra;
     }
     else {
         carp "Could not find root dir containing " . join( ', ', @libdirs );

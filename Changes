@@ -1,6 +1,10 @@
 Changes for lib::projectroot
 
-1.002   2015-05-04T22:04:25
+1.003   2015-05-04T22:16:08
+    - allow extra=.. as the only argument
+
+
+1.002   2015-05-04T22:04:25 (never released to CPAN)
     - load extra via import
     - fix some english grammar errors (spotted by sixtease)
 

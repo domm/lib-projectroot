@@ -4,7 +4,7 @@ use warnings;
 use 5.010;
 
 # ABSTRACT: easier loading of a project's local libs
-our $VERSION = "1.002";
+our $VERSION = "1.003";
 
 use FindBin qw();
 use Carp qw(carp);
@@ -25,7 +25,7 @@ sub import {
             push( @locallibs, $1 );
         }
         elsif ( $d =~ /^extra=([\S]+)/ ) {
-            @extra=split(/[,;]/, $1);
+            @extra = split( /[,;]/, $1 );
         }
         else {
             push( @libdirs, $d );
@@ -48,9 +48,10 @@ sub import {
     }
 
     if ($ROOT) {
-        local::lib->import( map { catdir( $ROOT, $_ ) } @locallibs ) if @locallibs;
-        lib->import( map        { catdir( $ROOT, $_ ) } @libdirs ) if @libdirs;
-        __PACKAGE__->load_extra( @extra ) if @extra;
+        local::lib->import( map { catdir( $ROOT, $_ ) } @locallibs )
+            if @locallibs;
+        lib->import( map { catdir( $ROOT, $_ ) } @libdirs ) if @libdirs;
+        __PACKAGE__->load_extra(@extra) if @extra;
     }
     else {
         carp "Could not find root dir containing " . join( ', ', @libdirs );

@@ -34,15 +34,17 @@ sub import {
 
     my @searchdirs = splitdir("$FindBin::Bin");
 
-SEARCH: while (@searchdirs) {
-        foreach my $dir (@libdirs) {
-            unless ( -d catdir( @searchdirs, $dir ) ) {
-                pop(@searchdirs);
-                next SEARCH;
+    unless ($ROOT) {
+    SEARCH: while (@searchdirs) {
+            foreach my $dir (@libdirs) {
+                unless ( -d catdir( @searchdirs, $dir ) ) {
+                    pop(@searchdirs);
+                    next SEARCH;
+                }
             }
+            $ROOT = catdir(@searchdirs);
+            last SEARCH;
         }
-        $ROOT = catdir(@searchdirs);
-        last SEARCH;
     }
 
     if ($ROOT) {

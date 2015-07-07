@@ -12,7 +12,7 @@ use File::Spec::Functions qw(catdir splitdir);
 use local::lib qw();
 use lib qw();
 
-my $ROOT;
+our $ROOT;
 
 sub import {
     my $class = shift;
@@ -107,6 +107,9 @@ __END__
   # the same as above
   use lib::projectroot qw(lib local::lib=local extra=Your-OtherModule,Dark-PAN);
 
+  # if you want to know where the project-root is:
+  say lib::projectroot::ROOT;  # /home/domm/jobs/Some-Project
+
 =head1 DESCRIPTION
 
 I'm usually using a setup like this:
@@ -166,6 +169,8 @@ You can also define extra dists directly while loading C<lib::projectroot>:
       local::lib=local
       extra=MyHelperStuff,CoolLib-NotYetOnCPAN
   );
+
+You can access C<$lib::projectroot::ROOT> if you need to know where the projectroot actually is located (e.g. to load some assets)
 
 =head1 TODOs
 

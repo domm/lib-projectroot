@@ -1,10 +1,12 @@
 package lib::projectroot;
 use strict;
+
+use strict;
 use warnings;
 use 5.010;
 
 # ABSTRACT: easier loading of a project's local libs
-our $VERSION = "1.003";
+our $VERSION = "1.004";
 
 use FindBin qw();
 use Carp qw(carp);

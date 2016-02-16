@@ -21,6 +21,7 @@ sub import {
     my @libdirs;
     my @locallibs;
     my @extra;
+    my @extra_with_local;
     foreach my $d (@_) {
         if ( $d =~ /^local::lib=([\S]+)/ ) {
             push( @libdirs,   $1 );
@@ -28,6 +29,9 @@ sub import {
         }
         elsif ( $d =~ /^extra=([\S]+)/ ) {
             @extra = split( /[,;]/, $1 );
+        }
+        elsif ( $d =~ /^extrawithlocal=([\S]+)/ ) {
+            @extra_with_local = split( /[,;]/, $1 );
         }
         else {
             push( @libdirs, $d );
@@ -54,6 +58,8 @@ sub import {
             if @locallibs;
         lib->import( map { catdir( $ROOT, $_ ) } @libdirs ) if @libdirs;
         __PACKAGE__->load_extra(@extra) if @extra;
+        __PACKAGE__->load_extra_with_local(@extra_with_local)
+            if @extra_with_local;
     }
     else {
         carp "Could not find root dir containing " . join( ', ', @libdirs );
@@ -72,6 +78,34 @@ sub load_extra {
         my $extra = catdir( $parent, $d, 'lib' );
         if ( -d $extra ) {
             push( @INC, $extra );
+        }
+        else {
+            carp "Cannot load_extra $d, directory $extra does not exist";
+        }
+    }
+}
+
+sub load_extra_with_local {
+    my $class  = shift;
+    my @extras = @_;
+
+    my @parts = splitdir($ROOT);
+    pop(@parts);
+    my $parent = catdir(@parts);
+
+    foreach my $d (@extras) {
+        my $extra = catdir( $parent, $d, 'lib' );
+        if ( -d $extra ) {
+            push( @INC, $extra );
+            my $extra_local = catdir( $parent, $d, 'local' );
+            if ( -d $extra_local ) {
+                local::lib->import($extra_local);
+            }
+            else {
+                carp
+                    "Cannot load local::lib in extra $d, directory $extra_local does not exist";
+
+            }
         }
         else {
             carp "Cannot load_extra $d, directory $extra does not exist";

@@ -6,7 +6,7 @@ use warnings;
 use 5.010;
 
 # ABSTRACT: easier loading of a project's local libs
-our $VERSION = "1.004";
+our $VERSION = "1.005";
 
 use FindBin qw();
 use Carp qw(carp);
@@ -146,6 +146,9 @@ __END__
   # if you want to know where the project-root is:
   say lib::projectroot::ROOT;  # /home/domm/jobs/Some-Project
 
+  # also load local::libs installed in extras
+  use lib::projectroot qw(lib local::lib=local extra_with_local=Your-OtherModule,Dark-PAN);
+
 =head1 DESCRIPTION
 
 I'm usually using a setup like this:
@@ -206,6 +209,15 @@ You can also define extra dists directly while loading C<lib::projectroot>:
       extra=MyHelperStuff,CoolLib-NotYetOnCPAN
   );
 
+If your extra dists themselves have deps which are installed into their C<local::lib>, you can add those via C<extra_with_local>:
+
+  use lib::projectroot qw(
+      lib
+      local::lib=local
+      extra=MyHelperStuff
+      extra_with_local=CoolLib-NotYetOnCPAN
+  );
+
 You can access C<$lib::projectroot::ROOT> if you need to know where the projectroot actually is located (e.g. to load some assets)
 
 =head1 TODOs
@@ -215,8 +227,6 @@ Some ideas for future releases:
 =over
 
 =item * what happens if C<$PERL5LIB> is already set?
-
-=item * add C<local::lib> dirs of extras (i.e. if DarkPAN also uses C<local::lib> to install its deps)
 
 =item * think about the security issues raised by Abraxxa (http://prepan.org/module/nY4oajhgzJN 2014-12-02 18:42:07)
 

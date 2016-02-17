@@ -30,7 +30,7 @@ sub import {
         elsif ( $d =~ /^extra=([\S]+)/ ) {
             @extra = split( /[,;]/, $1 );
         }
-        elsif ( $d =~ /^extrawithlocal=([\S]+)/ ) {
+        elsif ( $d =~ /^extra_with_local=([\S]+)/ ) {
             @extra_with_local = split( /[,;]/, $1 );
         }
         else {

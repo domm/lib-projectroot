@@ -144,7 +144,7 @@ __END__
   use lib::projectroot qw(lib local::lib=local extra=Your-OtherModule,Dark-PAN);
 
   # if you want to know where the project-root is:
-  say lib::projectroot::ROOT;  # /home/domm/jobs/Some-Project
+  say $lib::projectroot::ROOT;  # /home/domm/jobs/Some-Project
 
   # also load local::libs installed in extras
   use lib::projectroot qw(lib local::lib=local extra_with_local=Your-OtherModule,Dark-PAN);

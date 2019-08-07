@@ -246,6 +246,8 @@ Some ideas for future releases:
 
 =item * and probably more...
 
+=back
+
 =head1 THANKS
 
 Thanks to C<eserte>, C<Smylers> & Ca<abraxxa> for providing feedback
